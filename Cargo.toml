@@ -1,0 +1,10 @@
+[package]
+name = "bamsta"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bam = "0.1.4"
+
+[profile.release]
+strip = true
