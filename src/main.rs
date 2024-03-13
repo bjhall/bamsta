@@ -71,7 +71,7 @@ fn collect_stats(bam_reader: BamReader<File>) -> Result<HashMap<Location, (f64, 
         let mut curr_pos = record.start();
         for (cigar_len, cigar_op) in record.cigar().iter() {
             if cigar_op.consumes_ref() {
-                for _ in 1..cigar_len {
+                for _ in 1..cigar_len + 1 {
 
                     // Create Location struct
                     let location = Location {
