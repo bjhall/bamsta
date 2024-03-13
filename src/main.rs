@@ -1,5 +1,4 @@
 //use rust_htslib::{bam, bam::Read};
-use bam;
 use bam::BamReader;
 use std::collections::{HashMap};
 use std::env;
@@ -91,7 +90,7 @@ fn collect_stats(bam_reader: BamReader<File>) -> Result<HashMap<Location, (f64, 
             }
         }
     }
-    return Ok(mapq_sums)
+    Ok(mapq_sums)
 }
 
 
@@ -114,7 +113,7 @@ fn write_depth_bedgraph(mapq_sums: &HashMap<Location, (f64, usize)>, average_map
     let mut prev_position = 0;
     let mut prev_dp = 0;
     for (location, _) in average_mapqs {
-        let (_, dp) = mapq_sums.get(&location).unwrap();
+        let (_, dp) = mapq_sums.get(location).unwrap();
         if &prev_dp != dp || prev_contig != location.contig_num {
             if !first {
                 writeln!(&mut dp_file_writer, "{}\t{}\t{}\t{}", contig_names.get(&prev_contig).unwrap(), region_start, prev_position+1, prev_dp).expect("Could not write to dp file");
