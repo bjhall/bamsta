@@ -126,6 +126,7 @@ fn write_depth_bedgraph(mapq_sums: &HashMap<Location, (f64, usize)>, average_map
         prev_contig = location.contig_num;
         prev_position = location.position
     }
+    writeln!(&mut dp_file_writer, "{}\t{}\t{}\t{}", contig_names.get(&prev_contig).unwrap(), region_start, prev_position+1, prev_dp).expect("Could not write to dp file");
 }
 
 
@@ -151,4 +152,5 @@ fn write_mapq_bedgraph(average_mapqs: &Vec<(Location, i32)>, contig_names: &Hash
         prev_contig = location.contig_num;
         prev_position = location.position
     }
+    writeln!(&mut mapq_file_writer, "{}\t{}\t{}\t{}", contig_names.get(&prev_contig).unwrap(), region_start, prev_position+1, prev_mapq).expect("Could not write to mapq file");
 }
